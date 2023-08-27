@@ -6,26 +6,24 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.skypro.examquestionsgenerator.exception.AmountException;
+import ru.skypro.examquestionsgenerator.service.QuestionService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
-import static ru.skypro.examquestionsgenerator.constants.JavaQuestionServiceImplTestConstants.EXPECTED1;
-import static ru.skypro.examquestionsgenerator.constants.JavaQuestionServiceImplTestConstants.QUESTION1;
+import static ru.skypro.examquestionsgenerator.constants.JavaQuestionServiceImplTestConstants.*;
 
 @ExtendWith(MockitoExtension.class)
 class ExaminerServiceImplTest {
-
     @Mock
-    private JavaQuestionService javaQuestionServiceMock;
+    private QuestionService questionServiceMock;
 
     @InjectMocks
     private ExaminerServiceImpl out;
 
     @Test
     void ShouldGetQuestions() {
-        when(javaQuestionServiceMock.getAll()).thenReturn(EXPECTED1);
-        when(javaQuestionServiceMock.getRandomQuestion()).thenReturn(QUESTION1);
+        when(questionServiceMock.getAll()).thenReturn(EXPECTED1);
         assertEquals(EXPECTED1, out.getQuestions(1));
     }
 

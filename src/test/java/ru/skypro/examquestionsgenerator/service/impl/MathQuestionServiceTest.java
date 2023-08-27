@@ -6,47 +6,48 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.skypro.examquestionsgenerator.model.Question;
-import ru.skypro.examquestionsgenerator.repository.QuestionRepository;
+import ru.skypro.examquestionsgenerator.repository.impl.MathQuestionRepository;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static ru.skypro.examquestionsgenerator.constants.JavaQuestionServiceImplTestConstants.*;
 
 @ExtendWith(MockitoExtension.class)
-class JavaQuestionServiceTest {
+class MathQuestionServiceTest {
+
     @Mock
-    private QuestionRepository questionRepositoryMock;
+    private MathQuestionRepository mathQuestionRepositoryMock;
 
     @InjectMocks
-    private JavaQuestionService out;
+    private MathQuestionService out;
 
     @Test
     void shouldAddQuestionWithFields() {
-        when(questionRepositoryMock.add(QUESTION, ANSWER)).thenReturn(QUESTION1);
+        when(mathQuestionRepositoryMock.add(QUESTION, ANSWER)).thenReturn(QUESTION1);
         assertEquals(QUESTION1, out.add(QUESTION, ANSWER));
     }
 
     @Test
     void shouldAddQuestionWithObject() {
-        when(questionRepositoryMock.add(QUESTION1)).thenReturn(QUESTION1);
+        when(mathQuestionRepositoryMock.add(QUESTION1)).thenReturn(QUESTION1);
         assertEquals(QUESTION1, out.add(QUESTION1));
     }
 
     @Test
     void shouldRemoveQuestionWithObject() {
-        when(questionRepositoryMock.remove(QUESTION1)).thenReturn(QUESTION1);
+        when(mathQuestionRepositoryMock.remove(QUESTION1)).thenReturn(QUESTION1);
         assertEquals(QUESTION1, out.remove(QUESTION1));
     }
 
     @Test
     void shouldGetAllQuestionsOfStorage() {
-        when(questionRepositoryMock.getAll()).thenReturn(EXPECTED2);
+        when(mathQuestionRepositoryMock.getAll()).thenReturn(EXPECTED2);
         assertEquals(EXPECTED2, out.getAll());
     }
 
     @Test
     void ShouldGetRandomQuestionFromStorage() {
-        when(questionRepositoryMock.getAll()).thenReturn(EXPECTED1);
+        when(mathQuestionRepositoryMock.getAll()).thenReturn(EXPECTED1);
         Question[] expected = EXPECTED1.toArray(EXPECTED1.toArray(new Question[0]));
         out.add(QUESTION1);
         assertEquals(expected[0], out.getRandomQuestion());
